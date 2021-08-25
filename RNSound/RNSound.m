@@ -200,10 +200,10 @@ RCT_EXPORT_METHOD(prepare
     AVAudioPlayer *player;
     NSString* fileNameEscaped = [fileName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-    if ([fileNameEscaped hasPrefix:@"http"]) {
-        fileNameUrl = [NSURL URLWithString:fileNameEscaped];
-        NSData *data = [NSData dataWithContentsOfURL:fileNameUrl];
-        player = [[AVAudioPlayer alloc] initWithData:data error:&error];
+    if ([fileName hasPrefix:@"http"]) {
+        fileNameUrl = [NSURL URLWithString:fileName];
+        NSData* data = [NSData dataWithContentsOfURL:fileNameUrl];
+        player = [[AVAudioPlayer alloc] initWithData:data fileTypeHint:AVFileTypeMPEGLayer3 error:&error];
     } else if ([fileNameEscaped hasPrefix:@"ipod-library://"]) {
         fileNameUrl = [NSURL URLWithString:fileNameEscaped];
         player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileNameUrl
